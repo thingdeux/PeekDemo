@@ -9,12 +9,11 @@
 import SpriteKit
 
 class Monster {
-    let scene: SKScene   // TODO: May retain?
-    let monsterSpeed: CGFloat
-    let floatingName: SKLabelNode
+    private let scene: SKScene   // TODO: May retain?
+    private let monsterSpeed: CGFloat
+    private let floatingName: SKLabelNode
     
-    let monster = SKSpriteNode(imageNamed: "monster")
-    
+    private let monster = SKSpriteNode(imageNamed: "monster")    
     
     init(with scene: SKScene, name: String, at position: CGPoint? = nil) {
         self.floatingName = SKLabelNode(text: name)
@@ -23,20 +22,33 @@ class Monster {
             self.monster.position = position
         } else {
             // Determine where to spawn the monster along the Y axis
-            let actualY = Monster.random(min: monster.size.height/2, max: self.scene.size.height - monster.size.height/2)
+            let actualY = Monster.random(min: monster.size.height/2, max: self.scene.size.height - monster.size.height/2)            
             // Position the monster slightly off-screen along the right edge,
             // and along a random position along the Y axis as calculated above
             self.monster.position = CGPoint(x: self.scene.size.width + monster.size.width/2, y: actualY)
         }
         // Determine speed of the monster
         monsterSpeed = Monster.random(min: CGFloat(2.0), max: CGFloat(4.0))
-        self.addToScene()
-    }
-    
-    private func addToScene() {
-        self.addFloatingText()
         // Add the monster to the scene
         scene.addChild(monster)
+        self.setupPhysics()
+        self.addFloatingText()
+        self.startMovement()
+    }
+    
+    static func create(with scene: SKScene, name: String, at position: CGPoint? = nil) {
+        Monster(with: scene, name: name, at: position)
+    }
+    
+    private func setupPhysics() {
+        monster.physicsBody = SKPhysicsBody(rectangleOfSize: monster.size) // 1
+        monster.physicsBody?.dynamic = true // 2
+        monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster // 3
+        monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile // 4
+        monster.physicsBody?.collisionBitMask = PhysicsCategory.None // 5
+    }
+    
+    private func startMovement() {
         // Create the actions
         let actionMove = SKAction.moveTo(CGPoint(x: -monster.size.width/2, y: monster.position.y), duration: NSTimeInterval(self.monsterSpeed))
         let actionMoveDone = SKAction.removeFromParent()
@@ -44,11 +56,10 @@ class Monster {
     }
     
     private func addFloatingText() {
-        self.floatingName.fontSize = 10
-        scene.addChild(self.floatingName)
-        self.floatingName.position.x = self.monster.position.x
-        self.floatingName.position.y = self.monster.position.y - 15
-        
+        self.monster.addChild(self.floatingName)
+        self.floatingName.fontColor = UIColor.blackColor()
+        self.floatingName.fontSize = 20
+        self.floatingName.position.y = self.floatingName.position.y + 25        
     }
     
     private static func random() -> CGFloat {
@@ -57,5 +68,5 @@ class Monster {
     
     private static func random(min min: CGFloat, max: CGFloat) -> CGFloat {
         return Monster.random() * (max - min) + min
-    }
+    }        
 }
