@@ -13,7 +13,7 @@ class Monster {
     private let monsterSpeed: CGFloat
     private let floatingName: SKLabelNode
     
-    private let monster = SKSpriteNode(imageNamed: "monster")    
+    private let monster = SKSpriteNode(imageNamed: "side1")
     
     init(with scene: SKScene, name: String, at position: CGPoint? = nil) {
         self.floatingName = SKLabelNode(text: name)
@@ -41,11 +41,11 @@ class Monster {
     }
     
     private func setupPhysics() {
-        monster.physicsBody = SKPhysicsBody(rectangleOfSize: monster.size) // 1
-        monster.physicsBody?.dynamic = true // 2
-        monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster // 3
-        monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile // 4
-        monster.physicsBody?.collisionBitMask = PhysicsCategory.None // 5
+//        monster.physicsBody = SKPhysicsBody(rectangleOfSize: monster.size) // 1
+//        monster.physicsBody?.dynamic = true // 2
+//        monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster // 3
+//        monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile // 4
+//        monster.physicsBody?.collisionBitMask = PhysicsCategory.None // 5
     }
     
     private func startMovement() {
