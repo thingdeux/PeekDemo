@@ -10,5 +10,9 @@ import GameplayKit
 import SpriteKit
 
 class SpriteComponent : GKComponent {
+    let node: SKSpriteNode
     
+    init(texture: SKTexture) {
+        node = SKSpriteNode(texture: texture, color: SKColor.whiteColor(), size: texture.size())
+    }
 }
