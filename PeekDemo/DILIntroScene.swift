@@ -48,7 +48,8 @@ class DILIntro: SKScene {
         guard let topScreen = self.scene?.size.height else { return }
         let titleCharacter = DILSetPiece(imageName: "Front",
                                       position: CGPoint(x: 185, y: topScreen - 300),
-                                      animation: [SKTexture(imageNamed: "Front"), SKTexture(imageNamed: "Front1")])        
+                                      animation: [SKTexture(imageNamed: "Front"), SKTexture(imageNamed: "Front1")])
+        
         if let character = titleCharacter.componentForClass(DILSpriteComponent.self) {
             character.setOverlayColor(to: UIColor(red: 153/255, green: 153/255, blue: 255/255, alpha: 1))
             character.setScale(to: 1.40)
@@ -58,5 +59,22 @@ class DILIntro: SKScene {
             animation.repeatAnimationForever(delay: 3)
         }
         entityManager?.add(titleCharacter)
+    }
+}
+
+extension DILIntro {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if (self.tappedForNextScreen == false) {
+            self.tappedForNextScreen = true
+            
+            self.view?.presentScene(DILLevelSelectScene(), transition: SKTransition.pushWithDirection(.Left, duration: 0.2))
+
+            dispatchOnMainQueue(seconds: 2.0, dispatchBlock: { 
+                // Kill all entities and prepare for dealloc
+                for entity in self.entityManager?.allEntities ?? [] {
+                    self.entityManager?.remove(entity)
+                }
+            })
+        }
     }
 }

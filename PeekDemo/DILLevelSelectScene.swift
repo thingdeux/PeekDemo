@@ -13,9 +13,70 @@ import GameplayKit
 class DILLevelSelectScene : SKScene {
     var entityManager: DILEntityManager? = nil
     var tappedForNextScreen = false
+    var briefLines: Double = 1.0
 
     override func didMoveToView(view: SKView) {
         backgroundColor = SKColor.blackColor()
         self.entityManager = DILEntityManager(scene: self)
+        self.setupMissionBrief()
+        self.setupLevelPortals()
     }
+    
+    private func setupMissionBrief() {
+        self.addMissionBrief(text: "Agent, our world class spy network has informed us of")
+        self.addMissionBrief(text: "numerous attempts by foreign forces to undermine our")
+        self.addMissionBrief(text: "government and overthrow our president.")
+        self.addMissionBrief(text: " ")
+        self.addMissionBrief(text: "Be Vigilent")
+    }
+    
+    private func addMissionBrief(text briefText: String) {
+        guard let topScreen = self.scene?.size.height else { return }
+        let yPosition = (topScreen - 40) - CGFloat(self.briefLines * 30.0)
+        let briefText = DILText(text: briefText, position: CGPoint(x: 15, y: yPosition))
+        if let briefText = briefText.componentForClass(DILUIComponent.self) {
+            briefText.setColor(to: UIColor.whiteColor())
+            briefText.setSize(to: 20.0)
+            briefText.setAlignment(.Left)
+        }
+        entityManager?.add(briefText)
+        self.briefLines += 1.0
+    }
+    
+    private func setupLevelPortals() {
+        self.drawElevatorLevelPortal()
+        self.drawParkLevelPortal()
+    }
+    
+    private func drawElevatorLevelPortal() {
+        guard let centerScreen = self.scene?.size.width else { return }
+        let elevatorText = DILText(text: "ELEVATOR", position: CGPoint(x: centerScreen / 2, y: 125)) { (touches, event, type) in
+            if type == .TouchEnded {
+                print("GO TO ELEVATOR LEVEL")
+            }
+        }
+        if let elevatorText = elevatorText.componentForClass(DILUIComponent.self) {
+            elevatorText.setColor(to: UIColor.whiteColor())
+            elevatorText.setSize(to: 30.0)
+            elevatorText.setAlignment(.Center)
+        }
+        entityManager?.add(elevatorText)
+    }
+    
+    private func drawParkLevelPortal() {
+        guard let centerScreen = self.scene?.size.width else { return }
+        let elevatorText = DILText(text: "PARK", position: CGPoint(x: centerScreen / 2, y: 175)) { (touches, event, type) in
+            if type == .TouchEnded {
+                print("GO TO PARK LEVEL")
+            }
+        }
+        if let elevatorText = elevatorText.componentForClass(DILUIComponent.self) {
+            elevatorText.setColor(to: UIColor.whiteColor())
+            elevatorText.setSize(to: 30.0)
+            elevatorText.setAlignment(.Center)
+        }
+        entityManager?.add(elevatorText)
+    }
+    
+    
 }
