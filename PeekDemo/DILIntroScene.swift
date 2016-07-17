@@ -56,7 +56,7 @@ class DILIntro: SKScene {
         }
         if let animation = titleCharacter.componentForClass(DILAnimationComponent.self) {
             animation.setAnimationSpeed(to: 0.1)
-            animation.repeatAnimationForever(delay: 3)
+            animation.repeatAnimationForever(delay: 2.0)
         }
         entityManager?.add(titleCharacter)
     }
@@ -67,7 +67,9 @@ extension DILIntro {
         if (self.tappedForNextScreen == false) {
             self.tappedForNextScreen = true
             
-            self.view?.presentScene(DILLevelSelectScene(), transition: SKTransition.pushWithDirection(.Left, duration: 0.2))
+            dispatchOnMainQueue(seconds: 0.0, dispatchBlock: {
+                self.transitionToLevelSelect()
+            })
 
             dispatchOnMainQueue(seconds: 2.0, dispatchBlock: { 
                 // Kill all entities and prepare for dealloc
@@ -76,5 +78,14 @@ extension DILIntro {
                 }
             })
         }
+    }
+    
+    private func transitionToLevelSelect() {
+        let scene = DILLevelSelectScene()
+        let skView = self.view as SKView?
+        skView!.ignoresSiblingOrder = true
+        scene.scaleMode = .AspectFill
+        scene.size = skView!.bounds.size
+        self.view?.presentScene(scene, transition: SKTransition.pushWithDirection(.Left, duration: 0.2))
     }
 }

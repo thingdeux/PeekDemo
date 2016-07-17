@@ -13,6 +13,7 @@ import GameplayKit
 class DILParkScene : SKScene {
     private var cameraNode: SKCameraNode?
     private var currentScale: CGFloat = 1
+    private var fingersOnForPinchZoom = false
     
     override func didMoveToView(view: SKView) {
         self.cameraNode = self.childNodeWithName("MainCamera") as? SKCameraNode
