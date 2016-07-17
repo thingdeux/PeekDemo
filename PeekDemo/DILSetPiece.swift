@@ -13,7 +13,7 @@ import SpriteKit
 import GameplayKit
 
 class DILSetPiece : GKEntity {
-    init(imageName: String, position: CGPoint, animation: [SKTexture]? = nil) {
+    init(imageName: String, position: CGPoint, animation: [SKTexture]? = nil, handler: DILNodeTouchedHandler? = nil) {
         super.init()
 
         let spriteComponent = DILSpriteComponent(name: imageName, position: position)
@@ -21,6 +21,10 @@ class DILSetPiece : GKEntity {
         
         if let animation = animation {
             addComponent(DILAnimationComponent(with: spriteComponent.node, textures: animation, name: "pieceAnim\(self)"))
+        }
+        
+        if let handler = handler {
+            self.addComponent(DILTappableComponent(with: spriteComponent.node as DILSKSpriteNode, with: handler))
         }
     }        
 }

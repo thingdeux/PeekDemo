@@ -10,12 +10,11 @@ import GameplayKit
 import SpriteKit
 
 class DILSpriteComponent : GKComponent {
-    let node: SKSpriteNode
+    let node: DILSKSpriteNode
     
-    init(name: String, position: CGPoint) {
-        // Note : I want this to crash if a resource can't be found. It's useless if not loaded.
-        self.node = SKSpriteNode(imageNamed: name)
-        self.node.position = position
+    init(name: String, position: CGPoint) {        
+        self.node = DILSKSpriteNode(imageNamed: name)
+        self.node.position = position        
     }
     
     func setOverlayColor(to color: UIColor) {

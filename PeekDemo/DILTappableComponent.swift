@@ -21,11 +21,21 @@ enum DILTouchType {
 typealias DILNodeTouchedHandler = (touches: Set<UITouch>, event: UIEvent?, type: DILTouchType) -> Void
 
 class DILTappableComponent : GKComponent {
-    let node: SKNode
+    var spriteNode: DILSKSpriteNode? = nil
+    var labelNode: DILSKLabelNode? = nil
     let touchedHandler: DILNodeTouchedHandler?
     
-    init(with node: SKNode, with handler: DILNodeTouchedHandler?) {
-        self.node = node
+    init(with node: DILSKSpriteNode, with handler: DILNodeTouchedHandler?) {
+        self.spriteNode = node
         self.touchedHandler = handler
+        self.spriteNode?.userInteractionEnabled = true
+        self.spriteNode?.touchHandler = handler
+    }
+    
+    init(with node: DILSKLabelNode, with handler: DILNodeTouchedHandler?) {
+        self.labelNode = node
+        self.touchedHandler = handler
+        self.labelNode?.userInteractionEnabled = true
+        self.labelNode?.touchHandler = handler
     }
 }

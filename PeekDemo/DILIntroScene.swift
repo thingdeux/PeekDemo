@@ -36,9 +36,6 @@ class DILIntro: SKScene {
     
     private func setupBuildText() {
         let welcomeText = DILText(text: "Prototype Build v0.0.1", position: CGPoint(x: 12, y: 12))
-        DILText(text: "Prototype Build v0.0.1", position: position) { (touches, event, type) in
-            print("GOT TOUCHED!!!")
-        }
         if let welcomeText = welcomeText.componentForClass(DILUIComponent.self) {
             welcomeText.setColor(to: UIColor.whiteColor())
             welcomeText.setSize(to: 14.0)
@@ -51,7 +48,7 @@ class DILIntro: SKScene {
         guard let topScreen = self.scene?.size.height else { return }
         let titleCharacter = DILSetPiece(imageName: "Front",
                                       position: CGPoint(x: 185, y: topScreen - 300),
-                                      animation: [SKTexture(imageNamed: "Front"), SKTexture(imageNamed: "Front1")])
+                                      animation: [SKTexture(imageNamed: "Front"), SKTexture(imageNamed: "Front1")])        
         if let character = titleCharacter.componentForClass(DILSpriteComponent.self) {
             character.setOverlayColor(to: UIColor(red: 153/255, green: 153/255, blue: 255/255, alpha: 1))
             character.setScale(to: 1.40)
@@ -61,43 +58,5 @@ class DILIntro: SKScene {
             animation.repeatAnimationForever(delay: 3)
         }
         entityManager?.add(titleCharacter)
-    }
-}
-
-extension DILIntro {
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.passTouchEndedToManager(touches, withEvent: event)
-//        if (self.tappedForNextScreen == false) {
-//            self.tappedForNextScreen = true
-//            
-//            self.view?.presentScene(DILLevelSelectScene(), transition: SKTransition.pushWithDirection(.Left, duration: 0.2))
-//
-//            dispatchOnMainQueue(seconds: 2.0, dispatchBlock: { 
-//                // Kill all entities and prepare for dealloc
-//                for entity in self.entityManager?.allEntities ?? [] {
-//                    self.entityManager?.remove(entity)
-//                }
-//            })
-//        }
-    }
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.passTouchesBeganToManager(touches, withEvent: event)
-    }
-    
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.passTouchesMovedToManager(touches, withEvent: event)
-    }
-}
-
-extension DILIntro : DILNodeTappableScene {
-    func passTouchEndedToManager(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.entityManager?.receiveTouchEnded(touches, withEvent: event)
-    }
-    func passTouchesBeganToManager(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.entityManager?.receiveTouchesBegan(touches, withEvent: event)
-    }
-    func passTouchesMovedToManager(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.entityManager?.receiveTouchesMoved(touches, withEvent: event)
     }
 }

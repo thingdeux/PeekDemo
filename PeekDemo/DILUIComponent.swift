@@ -18,18 +18,18 @@ enum DILUIType {
 }
 
 class DILUIComponent : GKComponent {
-    var label: SKLabelNode? = nil
+    var label: DILSKLabelNode? = nil
     let type: DILUIType
     
     init(text: String, type: DILUIType = .Stationary, position: CGPoint) {
         self.type = type
         super.init()
         
-        self.label = SKLabelNode(fontNamed: "DINCondensed-Bold")
+        self.label = DILSKLabelNode(fontNamed: "DINCondensed-Bold")
         guard let labelNode = self.label else { return }
         labelNode.text = text
         labelNode.position = position
-        labelNode.horizontalAlignmentMode = .Center        
+        labelNode.horizontalAlignmentMode = .Center
     }
     
     func setColor(to color: UIColor) {
@@ -42,22 +42,7 @@ class DILUIComponent : GKComponent {
     
     func setAlignment(alignment: SKLabelHorizontalAlignmentMode) {
         self.label?.horizontalAlignmentMode = alignment
-    }
-    
-//    private func addToScene() {
-//        if let _ = self.scene {
-//            switch (self.type) {
-//            case .Stationary:
-//                self.initStationary()
-//            case .HorizontalScrolling:
-//                self.startHorizontalScroller()
-//            case .VerticalScrolling:
-//                self.startVeriticalScroller()
-//            case .Button:
-//                self.initButton()
-//            }
-//        }
-//    }
+    }    
     
 }
 
