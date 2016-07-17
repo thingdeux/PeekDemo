@@ -14,6 +14,8 @@ class DILLevelSelectScene : SKScene {
     var entityManager: DILEntityManager? = nil
     var tappedForNextScreen = false
     var briefLines: Double = 1.0
+    var canGoToElevator = false
+    var selectedLevel = false
 
     override func didMoveToView(view: SKView) {
         backgroundColor = SKColor.blackColor()
@@ -25,9 +27,12 @@ class DILLevelSelectScene : SKScene {
     private func setupMissionBrief() {
         self.addMissionBrief(text: "Agent, our world class spy network has informed us of")
         self.addMissionBrief(text: "numerous attempts by foreign forces to undermine our")
-        self.addMissionBrief(text: "government and overthrow our president.")
+        self.addMissionBrief(text: "government and overthrow our president. Foreign Agents")
+        self.addMissionBrief(text: "have been using the park near Romall precinct to share")
+        self.addMissionBrief(text: "information of their operations.  Find them, and report")
+        self.addMissionBrief(text: "back.  You have numerous resources are your disposal.")
         self.addMissionBrief(text: " ")
-        self.addMissionBrief(text: "Be Vigilent")
+        self.addMissionBrief(text: "Be Vigilent.")
     }
     
     private func addMissionBrief(text briefText: String) {
@@ -50,13 +55,19 @@ class DILLevelSelectScene : SKScene {
     
     private func drawElevatorLevelPortal() {
         guard let centerScreen = self.scene?.size.width else { return }
-        let elevatorText = DILText(text: "ELEVATOR", position: CGPoint(x: centerScreen / 2, y: 125)) { (touches, event, type) in
-            if type == .TouchEnded {
-                print("GO TO ELEVATOR LEVEL")
+        let elevatorText = DILText(text: "ELEVATOR", position: CGPoint(x: centerScreen / 2, y: 125)) { [weak self] (touches, event, type) in
+            if self?.canGoToElevator == true {
+                if type == .TouchBegan {
+                    print("GO TO ELEVATOR LEVEL")
+                }
             }
         }
         if let elevatorText = elevatorText.componentForClass(DILUIComponent.self) {
-            elevatorText.setColor(to: UIColor.whiteColor())
+            if (self.canGoToElevator == false) {
+                elevatorText.setColor(to: UIColor.lightGrayColor())
+            } else {
+                elevatorText.setColor(to: UIColor.whiteColor())
+            }
             elevatorText.setSize(to: 30.0)
             elevatorText.setAlignment(.Center)
         }
@@ -67,7 +78,15 @@ class DILLevelSelectScene : SKScene {
         guard let centerScreen = self.scene?.size.width else { return }
         let elevatorText = DILText(text: "PARK", position: CGPoint(x: centerScreen / 2, y: 175)) { (touches, event, type) in
             if type == .TouchEnded {
-                print("GO TO PARK LEVEL")
+                if (self.selectedLevel == false) {
+                    self.selectedLevel = true
+                    if let parkScene = DILParkScene(fileNamed: "DILParkScene") {
+                        self.view?.presentScene(parkScene, transition: SKTransition.pushWithDirection(.Left, duration: 0.2))
+                        dispatchOnMainQueue(seconds: 2.0, dispatchBlock: {
+                            self.entityManager?.cleanupAllEntities()
+                        })
+                    }
+                }
             }
         }
         if let elevatorText = elevatorText.componentForClass(DILUIComponent.self) {

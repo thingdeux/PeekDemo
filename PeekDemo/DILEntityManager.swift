@@ -41,4 +41,11 @@ class DILEntityManager {
         
         allEntities.remove(entity)
     }
+    
+    func cleanupAllEntities() {
+        // Kill all entities and prepare for dealloc
+        for entity in self.allEntities ?? [] {
+            self.remove(entity)
+        }
+    }
 }
