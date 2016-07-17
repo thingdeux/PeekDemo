@@ -15,7 +15,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        let scene = DILIntro()
-        let scene = DILLevelSelectScene()
+        let scene = DILParkScene(fileNamed: "DILParkScene")! //// SO DUUUURTY
         let skView = view as! SKView
         skView.showsFPS = true
         skView.showsNodeCount = true
