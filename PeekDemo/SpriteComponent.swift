@@ -26,4 +26,12 @@ class SpriteComponent : GKComponent {
     func setScale(to percentage: CGFloat) {
         node.setScale(percentage)
     }
+    
+    func flipHorizontally() {
+        if (self.node.xScale > 0) {
+            self.node.xScale = -1.0
+        } else {
+            self.node.xScale = 1.0
+        }
+    }
 }

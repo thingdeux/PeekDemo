@@ -27,7 +27,7 @@ class Intro: SKScene {
         guard let centerScreen = self.scene?.size.width, topScreen = self.scene?.size.height else { return }
         let welcomeText = Text(text: "DILIGENCE", position: CGPoint(x: centerScreen / 2, y: topScreen - 80))
         if let welcomeText = welcomeText.componentForClass(UIComponent.self) {
-            welcomeText.setColor(to: UIColor.cyanColor())
+            welcomeText.setColor(to: UIColor.whiteColor())
             welcomeText.setSize(to: 50.0)
         }
         entityManager?.add(welcomeText)
@@ -37,7 +37,7 @@ class Intro: SKScene {
         let welcomeText = Text(text: "Prototype Build v0.0.1", position: CGPoint(x: 12, y: 12))
         if let welcomeText = welcomeText.componentForClass(UIComponent.self) {
             welcomeText.setColor(to: UIColor.whiteColor())
-            welcomeText.setSize(to: 13.0)
+            welcomeText.setSize(to: 14.0)
             welcomeText.setAlignment(.Left)
         }
         entityManager?.add(welcomeText)
@@ -46,10 +46,10 @@ class Intro: SKScene {
     private func setupTitleCharacter() {
         // TODO: Animate for blinkies
         guard let topScreen = self.scene?.size.height else { return }
-        let titleCharacter = SetPiece(imageName: "Front", position: CGPoint(x: 185, y: topScreen - 250))
+        let titleCharacter = SetPiece(imageName: "Front", position: CGPoint(x: 185, y: topScreen - 300))
         if let character = titleCharacter.componentForClass(SpriteComponent.self) {
-            character.setOverlayColor(to: UIColor(red: 255, green: 92, blue: 51, alpha: 1.0))
-            character.setScale(to: 1.75)
+            character.setOverlayColor(to: UIColor(red: 153/255, green: 153/255, blue: 255/255, alpha: 1))
+            character.setScale(to: 1.40)
         }
         entityManager?.add(titleCharacter)
     }
