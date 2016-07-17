@@ -15,7 +15,7 @@ import GameplayKit
 class AnimationComponent : GKComponent {
     let node: SKSpriteNode
     let texturesToAnimate: [SKTexture]
-    let timePerFrame: Double = 0.1
+    var timePerFrame: Double = 0.1
     let name: String
     
     /// SpriteComponent Dependancy
@@ -29,21 +29,26 @@ class AnimationComponent : GKComponent {
         
     }
     
-    private func stopAnimation() {
+    func stopAnimation() {
         // Stop any animation
         self.node.removeActionForKey(self.name)
     }
     
-    private func setAnimationSpeed() {
+    func setAnimationSpeed(to timePerFrame: Double) {
+        self.timePerFrame = timePerFrame
     }
     
-    private func repeatAnimationForever() {
-        self.node.runAction(SKAction.repeatActionForever(
+    func repeatAnimationForever(delay delayTime: Double = 0) {
+        let animationSequence = SKAction.sequence([
+            SKAction.waitForDuration(delayTime),
             SKAction.animateWithTextures(
                 self.texturesToAnimate,
                 timePerFrame: self.timePerFrame,
                 resize: false,
-                restore: true)),
-            withKey: self.name)
+                restore: true)
+            ])
+        
+        
+        self.node.runAction(SKAction.repeatActionForever(animationSequence), withKey: self.name)
     }
 }

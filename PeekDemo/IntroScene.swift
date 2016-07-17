@@ -44,12 +44,17 @@ class Intro: SKScene {
     }
     
     private func setupTitleCharacter() {
-        // TODO: Animate for blinkies
         guard let topScreen = self.scene?.size.height else { return }
-        let titleCharacter = SetPiece(imageName: "Front", position: CGPoint(x: 185, y: topScreen - 300))
+        let titleCharacter = SetPiece(imageName: "Front",
+                                      position: CGPoint(x: 185, y: topScreen - 300),
+                                      animation: [SKTexture(imageNamed: "Front"), SKTexture(imageNamed: "Front1")])
         if let character = titleCharacter.componentForClass(SpriteComponent.self) {
             character.setOverlayColor(to: UIColor(red: 153/255, green: 153/255, blue: 255/255, alpha: 1))
             character.setScale(to: 1.40)
+        }
+        if let animation = titleCharacter.componentForClass(AnimationComponent.self) {
+            animation.setAnimationSpeed(to: 0.1)
+            animation.repeatAnimationForever(delay: 3)
         }
         entityManager?.add(titleCharacter)
     }
