@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class ElevatorScene : SKScene {
+class DILElevatorScene : SKScene {
     
 }
 

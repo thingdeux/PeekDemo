@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import GameKit
 
-class GameScene: SKScene {
+class DILGameScene: SKScene {
     let player = SKSpriteNode(imageNamed: "side1")
     
     override func didMoveToView(view: SKView) {
@@ -70,7 +70,7 @@ class GameScene: SKScene {
     }
 }
 
-extension GameScene : SKPhysicsContactDelegate {
+extension DILGameScene : SKPhysicsContactDelegate {
     func didBeginContact(contact: SKPhysicsContact) {
 //        var firstBody: SKPhysicsBody
 //        var secondBody: SKPhysicsBody
