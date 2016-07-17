@@ -18,49 +18,46 @@ enum UIType {
 }
 
 class UIComponent : GKComponent {
-    let scene: SKScene? = nil
-    let label: SKLabelNode? = nil
+    var label: SKLabelNode? = nil
     let type: UIType
-    let UIText: String?
     
-    init(text: String, type: UIType = .Stationary, position: CGPoint, scrollDelay: Int = 0) {
-        self.UIText = text
+    init(text: String, type: UIType = .Stationary, position: CGPoint) {
         self.type = type
         super.init()
-        self.addToScene()
-        self.scrollIfNecessary(with: scrollDelay)
-    }
-    
-    private func scrollIfNecessary(with delay: Int) {
-    }
-    
-    private func addToScene() {
-        if let _ = self.scene {
-            switch (self.type) {
-            case .Stationary:
-                self.initStationary()
-            case .HorizontalScrolling:
-                self.startHorizontalScroller()
-            case .VerticalScrolling:
-                self.startVeriticalScroller()
-            case .Button:
-                self.initButton()
-            }
-        }
-    }
-    
-    private func initStationary() {
         
-    }
-    private func initButton() {
+        self.label = SKLabelNode(fontNamed: "DINCondensed-Bold")
+        guard let labelNode = self.label else { return }
+        labelNode.text = text
+        labelNode.position = position
+        labelNode.horizontalAlignmentMode = .Center        
     }
     
-    private func startVeriticalScroller() {
+    func setColor(to color: UIColor) {
+        self.label?.fontColor = color
     }
     
-    private func startHorizontalScroller() {
-        
+    func setSize(to size: CGFloat) {
+        self.label?.fontSize = size
     }
+    
+    func setAlignment(alignment: SKLabelHorizontalAlignmentMode) {
+        self.label?.horizontalAlignmentMode = alignment
+    }
+    
+//    private func addToScene() {
+//        if let _ = self.scene {
+//            switch (self.type) {
+//            case .Stationary:
+//                self.initStationary()
+//            case .HorizontalScrolling:
+//                self.startHorizontalScroller()
+//            case .VerticalScrolling:
+//                self.startVeriticalScroller()
+//            case .Button:
+//                self.initButton()
+//            }
+//        }
+//    }
     
 }
 

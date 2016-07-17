@@ -24,11 +24,19 @@ class EntityManager {
         if let spriteNode = entity.componentForClass(SpriteComponent.self)?.node {
             scene?.addChild(spriteNode)
         }
+        
+        if let uiNode = entity.componentForClass(UIComponent.self)?.label {
+            scene?.addChild(uiNode)
+        }
     }
     
     func remove(entity: GKEntity) {
         if let spriteNode = entity.componentForClass(SpriteComponent.self)?.node {
             spriteNode.removeFromParent()
+        }
+        
+        if let uiNode = entity.componentForClass(UIComponent.self)?.label {
+            uiNode.removeFromParent()
         }
         
         allEntities.remove(entity)

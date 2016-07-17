@@ -17,6 +17,7 @@
 		03CE4BC81D3A7ED90094B48F /* UtilitiesAndMiscExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CE4BC71D3A7ED90094B48F /* UtilitiesAndMiscExtensions.swift */; };
 		03CE4BCA1D3A80010094B48F /* SetPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CE4BC91D3A80010094B48F /* SetPiece.swift */; };
 		03CE4BCC1D3A814C0094B48F /* TappableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CE4BCB1D3A814C0094B48F /* TappableComponent.swift */; };
+		03CE4BCE1D3AA6E60094B48F /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CE4BCD1D3AA6E60094B48F /* Text.swift */; };
 		03DD321E1D37AA52003F1B98 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DD321D1D37AA52003F1B98 /* AppDelegate.swift */; };
 		03DD32221D37AA52003F1B98 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DD32211D37AA52003F1B98 /* GameViewController.swift */; };
 		03DD32251D37AA52003F1B98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03DD32231D37AA52003F1B98 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 		03CE4BC71D3A7ED90094B48F /* UtilitiesAndMiscExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilitiesAndMiscExtensions.swift; sourceTree = "<group>"; };
 		03CE4BC91D3A80010094B48F /* SetPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPiece.swift; sourceTree = "<group>"; };
 		03CE4BCB1D3A814C0094B48F /* TappableComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TappableComponent.swift; sourceTree = "<group>"; };
+		03CE4BCD1D3AA6E60094B48F /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		03DD321A1D37AA52003F1B98 /* PeekDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeekDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03DD321D1D37AA52003F1B98 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03DD32211D37AA52003F1B98 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				03DD32381D37BBF7003F1B98 /* Enemy.swift */,
 				03CE4BC21D3A7E870094B48F /* EntityManager.swift */,
 				03CE4BC91D3A80010094B48F /* SetPiece.swift */,
+				03CE4BCD1D3AA6E60094B48F /* Text.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				0382D9141D3A3ADC00718014 /* ElevatorScene.swift in Sources */,
 				03CE4BC81D3A7ED90094B48F /* UtilitiesAndMiscExtensions.swift in Sources */,
 				0382D9161D3A3AE500718014 /* IntroScene.swift in Sources */,
+				03CE4BCE1D3AA6E60094B48F /* Text.swift in Sources */,
 				03DD321E1D37AA52003F1B98 /* AppDelegate.swift in Sources */,
 				0382D9181D3A3B1200718014 /* UIComponent.swift in Sources */,
 				03CE4BCA1D3A80010094B48F /* SetPiece.swift in Sources */,

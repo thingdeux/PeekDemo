@@ -13,10 +13,10 @@ import SpriteKit
 import GameplayKit
 
 class SetPiece : GKEntity {
-    init(imageName: String) {
+    init(imageName: String, position: CGPoint) {
         super.init()
 
-        let spriteComponent = SpriteComponent(texture: SKTexture(imageNamed: imageName))
+        let spriteComponent = SpriteComponent(name: imageName, position: position)
         addComponent(spriteComponent)
-    }
+    }        
 }
