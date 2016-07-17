@@ -12,15 +12,15 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class SetPiece : GKEntity {
+class DILSetPiece : GKEntity {
     init(imageName: String, position: CGPoint, animation: [SKTexture]? = nil) {
         super.init()
 
-        let spriteComponent = SpriteComponent(name: imageName, position: position)
+        let spriteComponent = DILSpriteComponent(name: imageName, position: position)
         addComponent(spriteComponent)
         
         if let animation = animation {
-            addComponent(AnimationComponent(with: spriteComponent.node, textures: animation, name: "pieceAnim\(self)"))
+            addComponent(DILAnimationComponent(with: spriteComponent.node, textures: animation, name: "pieceAnim\(self)"))
         }
     }        
 }

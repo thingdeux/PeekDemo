@@ -9,12 +9,12 @@
 import GameplayKit
 import SpriteKit
 
-class SpriteComponent : GKComponent {
+class DILSpriteComponent : GKComponent {
     let node: SKSpriteNode
     
     init(name: String, position: CGPoint) {
         // Note : I want this to crash if a resource can't be found. It's useless if not loaded.
-        self.node = SKSpriteNode(imageNamed: "front")
+        self.node = SKSpriteNode(imageNamed: name)
         self.node.position = position
     }
     

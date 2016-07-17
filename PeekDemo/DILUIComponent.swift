@@ -10,18 +10,18 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-enum UIType {
+enum DILUIType {
     case Stationary
     case HorizontalScrolling
     case VerticalScrolling
     case Button
 }
 
-class UIComponent : GKComponent {
+class DILUIComponent : GKComponent {
     var label: SKLabelNode? = nil
-    let type: UIType
+    let type: DILUIType
     
-    init(text: String, type: UIType = .Stationary, position: CGPoint) {
+    init(text: String, type: DILUIType = .Stationary, position: CGPoint) {
         self.type = type
         super.init()
         

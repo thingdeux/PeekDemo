@@ -1,5 +1,5 @@
 //
-//  ParkScene.swift
+//  ElevatorScene.swift
 //  PeekDemo
 //
 //  Created by Josh on 7/16/16.
@@ -10,6 +10,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class ParkScene : SKScene {
+class DILElevatorScene : SKScene {
     
 }
+

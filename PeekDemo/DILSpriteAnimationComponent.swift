@@ -12,7 +12,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class AnimationComponent : GKComponent {
+class DILAnimationComponent : GKComponent {
     let node: SKSpriteNode
     let texturesToAnimate: [SKTexture]
     var timePerFrame: Double = 0.1
@@ -25,8 +25,16 @@ class AnimationComponent : GKComponent {
         self.texturesToAnimate = textures
     }
     
-    private func startAnimation() {
-        
+    func animateOnce(delay delayTime: Double = 0) {
+        let animationSequence = SKAction.sequence([
+            SKAction.waitForDuration(delayTime),
+            SKAction.animateWithTextures(
+                self.texturesToAnimate,
+                timePerFrame: self.timePerFrame,
+                resize: false,
+                restore: true)
+            ])
+        self.node.runAction(animationSequence)
     }
     
     func stopAnimation() {
