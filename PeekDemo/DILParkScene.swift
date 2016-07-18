@@ -16,7 +16,7 @@ class DILParkScene : SKScene {
     private var entityManager: DILEntityManager? = nil
     private var cameraNode: SKCameraNode?
     private var currentCameraScale: CGFloat = 1
-    private var maxCameraScale: CGFloat = 2
+    private var maxCameraScale: CGFloat = 2.0
     private var minCameraScale: CGFloat = 0.8
     private var zoomAllowed = true
     
@@ -28,17 +28,10 @@ class DILParkScene : SKScene {
     }
     
     private func setupPhysicsBody() {
-        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         self.cameraNode = self.childNodeWithName("MainCamera") as? SKCameraNode
         guard let camera = self.cameraNode else { return }
         camera.setScale(self.currentCameraScale)
-        camera.physicsBody?.affectedByGravity = true
-        camera.physicsBody?.dynamic = true
-        camera.physicsBody?.usesPreciseCollisionDetection = false
-        camera.physicsBody?.mass = 1
-    }
-    
-    
+    }    
 }
 
 // MARK: Gesture Handling
@@ -123,10 +116,6 @@ extension DILParkScene {
         }
     }
 }
-
-
-
-
 
 
 // MARK: Some other time
