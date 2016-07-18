@@ -11,15 +11,19 @@ import SpriteKit
 import GameplayKit
 
 class DILParkScene : SKScene {
+    private var entityManager: DILEntityManager? = nil
     private var cameraNode: SKCameraNode?
-    private var currentScale: CGFloat = 1
-    private var fingersOnForPinchZoom = false
+    private var currentCameraScale: CGFloat = 1
+    private var maxCameraScale: CGFloat = 2
+    private var minCameraScale: CGFloat = 0.8
+    private var zoomAllowed = true
     
     override func didMoveToView(view: SKView) {
+        self.entityManager = DILEntityManager(scene: self)
         self.cameraNode = self.childNodeWithName("MainCamera") as? SKCameraNode
-        self.cameraNode?.setScale(self.currentScale)        
+        self.cameraNode?.setScale(self.currentCameraScale)
         self.setupGestureRecognizers()
-        self.setupPinchRecognizers()
+        self.setupUIZoomControls()
     }
     
     // MARK: Gesture Handling
@@ -44,39 +48,77 @@ class DILParkScene : SKScene {
         self.view?.addGestureRecognizer(swipeDown)
     }
     
-    func swipedRight(sender:UISwipeGestureRecognizer){
-        print("Right")
+    internal func swipedRight(sender:UISwipeGestureRecognizer){
+        print("Right \(sender.direction.rawValue)")
     }
     
-    func swipedLeft(sender:UISwipeGestureRecognizer){
+    internal func swipedLeft(sender:UISwipeGestureRecognizer){
         print("Left")
     }
     
-    func swipedUp(sender:UISwipeGestureRecognizer){
+    internal func swipedUp(sender:UISwipeGestureRecognizer){
         print("Up")
     }
     
-    func swipedDown(sender:UISwipeGestureRecognizer){
+    internal func swipedDown(sender:UISwipeGestureRecognizer){
         print("Down")
     }
     
-    // MARK: Pinch Recognizer
-    private func setupPinchRecognizers() {
-        let pinch: UIPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(DILParkScene.pinched(_:)))
-        self.view?.addGestureRecognizer(pinch)
-    }
-    
-    func pinched(sender:UIPinchGestureRecognizer) {
-        print(sender.scale)
-        if (self.cameraNode?.xScale < 40 && self.cameraNode?.yScale < 40) {
-            self.cameraNode?.runAction(SKAction.scaleBy(sender.scale, duration: 0))
+}
+// MARK: Camera Handling
+extension DILParkScene {
+    private func setupUIZoomControls() {
+        guard let topScreen = self.scene?.size.height else { return }
+        let zoomOutButton = DILSetPiece(imageName: "ZoomOut", position: CGPoint(x: 105, y: (topScreen / 2) - 30)) { [weak self] (touches, event, type) in
+            self?.zoomOut()
         }
-        print("X: \(self.cameraNode?.xScale) Y: \(self.cameraNode?.yScale)")
+        if let zoomOutButton = zoomOutButton.componentForClass(DILSpriteComponent.self) {
+            zoomOutButton.setOverlayColor(to: UIColor.redColor())
+            zoomOutButton.setScale(to: 1)
+        }
+        let zoomInButton = DILSetPiece(imageName: "ZoomIn", position: CGPoint(x: 160, y: (topScreen / 2) - 30))  { [weak self] (touches, event, type) in
+            self?.zoomIn()
+        }
+        if let zoomInButton = zoomOutButton.componentForClass(DILSpriteComponent.self) {
+            zoomInButton.setOverlayColor(to: UIColor.whiteColor())
+            zoomInButton.setScale(to: 1)
+        }
+        
+        entityManager?.add(zoomOutButton, to: self.cameraNode)
+        entityManager?.add(zoomInButton, to: self.cameraNode)
     }
     
-    // MARK: Camera Handling
     private func zoomOut() {
-        self.currentScale += 0.1
-        self.cameraNode?.setScale(self.currentScale)
+        if (self.currentCameraScale < self.maxCameraScale) {
+            self.currentCameraScale += 0.2
+            self.cameraNode?.setScale(self.currentCameraScale)
+        }
+    }
+    
+    private func zoomIn() {
+        if (self.currentCameraScale > self.minCameraScale) {
+            self.currentCameraScale -= 0.2
+            self.cameraNode?.setScale(self.currentCameraScale)
+        }
     }
 }
+
+
+
+
+
+
+// MARK: Some other time
+//    private func setupPinchRecognizers() {
+//        let pinch: UIPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(DILParkScene.pinched(_:)))
+//        self.view?.addGestureRecognizer(pinch)
+//    }
+
+//    func pinched(sender:UIPinchGestureRecognizer) {
+//        let scaleToSet = self.currentCameraScale * sender.scale
+//        if (scaleToSet > self.minCameraScale && scaleToSet < self.maxCameraScale) {
+//            self.zoomAllowed = false
+//            self.currentCameraScale = self.currentCameraScale * sender.scale
+//            self.cameraNode?.runAction(SKAction.scaleBy(sender.scale, duration: 0))
+//        }
+//    }

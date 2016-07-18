@@ -18,6 +18,7 @@ class DILEntityManager {
         self.scene = scene
     }
     
+    /// Adds an entity object to the scenes view.
     func add(entity: GKEntity) {
         allEntities.insert(entity)
         
@@ -27,6 +28,19 @@ class DILEntityManager {
         
         if let uiNode = entity.componentForClass(DILUIComponent.self)?.label {
             scene?.addChild(uiNode)
+        }
+    }
+    
+    /// Adds an entity object to a provided parent node
+    func add(entity: GKEntity, to parent: SKNode?) {
+        allEntities.insert(entity)
+        
+        if let spriteNode = entity.componentForClass(DILSpriteComponent.self)?.node {
+            parent?.addChild(spriteNode)
+        }
+        
+        if let uiNode = entity.componentForClass(DILUIComponent.self)?.label {
+            parent?.addChild(uiNode)
         }
     }
     
@@ -41,6 +55,8 @@ class DILEntityManager {
         
         allEntities.remove(entity)
     }
+    
+    
     
     func cleanupAllEntities() {
         // Kill all entities and prepare for dealloc
