@@ -11,6 +11,8 @@ import SpriteKit
 import GameplayKit
 
 class DILParkScene : SKScene {
+    private var lastUpdateTimeInterval: CFTimeInterval = 0
+    private var lastCameraAdjustmentUpdate: CFTimeInterval = 0
     private var entityManager: DILEntityManager? = nil
     private var cameraNode: SKCameraNode?
     private var currentCameraScale: CGFloat = 1
@@ -20,12 +22,27 @@ class DILParkScene : SKScene {
     
     override func didMoveToView(view: SKView) {
         self.entityManager = DILEntityManager(scene: self)
-        self.cameraNode = self.childNodeWithName("MainCamera") as? SKCameraNode
-        self.cameraNode?.setScale(self.currentCameraScale)
+        self.setupPhysicsBody()
         self.setupGestureRecognizers()
         self.setupUIZoomControls()
     }
     
+    private func setupPhysicsBody() {
+        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        self.cameraNode = self.childNodeWithName("MainCamera") as? SKCameraNode
+        guard let camera = self.cameraNode else { return }
+        camera.setScale(self.currentCameraScale)
+        camera.physicsBody?.affectedByGravity = true
+        camera.physicsBody?.dynamic = true
+        camera.physicsBody?.usesPreciseCollisionDetection = false
+        camera.physicsBody?.mass = 1
+    }
+    
+    
+}
+
+// MARK: Gesture Handling
+extension DILParkScene {
     // MARK: Gesture Handling
     private func setupGestureRecognizers() {
         let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(DILParkScene.swipedRight(_:)))
@@ -49,23 +66,27 @@ class DILParkScene : SKScene {
     }
     
     internal func swipedRight(sender:UISwipeGestureRecognizer){
-        print("Right \(sender.direction.rawValue)")
+        guard let current = self.cameraNode?.position else { return }
+        self.cameraNode?.runAction(SKAction.moveTo(CGPoint(x: current.x - 200.0, y: current.y), duration: 0.2))
     }
     
     internal func swipedLeft(sender:UISwipeGestureRecognizer){
-        print("Left")
+        guard let current = self.cameraNode?.position else { return }
+        self.cameraNode?.runAction(SKAction.moveTo(CGPoint(x: current.x + 200.0, y: current.y), duration: 0.2))
     }
     
     internal func swipedUp(sender:UISwipeGestureRecognizer){
-        print("Up")
+        guard let current = self.cameraNode?.position else { return }
+        self.cameraNode?.runAction(SKAction.moveTo(CGPoint(x: current.x, y: current.y - 200), duration: 0.2))
     }
     
-    internal func swipedDown(sender:UISwipeGestureRecognizer){
-        print("Down")
+    internal func swipedDown(sender:UISwipeGestureRecognizer) {
+        guard let current = self.cameraNode?.position else { return }
+        self.cameraNode?.runAction(SKAction.moveTo(CGPoint(x: current.x, y: current.y + 200), duration: 0.2))
     }
-    
 }
-// MARK: Camera Handling
+
+// MARK: Camera Zooming
 extension DILParkScene {
     private func setupUIZoomControls() {
         guard let topScreen = self.scene?.size.height else { return }
