@@ -25,6 +25,7 @@ class DILParkScene : SKScene {
         self.setupPhysicsBody()
         self.setupGestureRecognizers()
         self.setupUIZoomControls()
+        self.initLevelGeometry()
     }
     
     private func setupPhysicsBody() {
@@ -117,18 +118,24 @@ extension DILParkScene {
     }
 }
 
-
-// MARK: Some other time
-//    private func setupPinchRecognizers() {
-//        let pinch: UIPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(DILParkScene.pinched(_:)))
-//        self.view?.addGestureRecognizer(pinch)
-//    }
-
-//    func pinched(sender:UIPinchGestureRecognizer) {
-//        let scaleToSet = self.currentCameraScale * sender.scale
-//        if (scaleToSet > self.minCameraScale && scaleToSet < self.maxCameraScale) {
-//            self.zoomAllowed = false
-//            self.currentCameraScale = self.currentCameraScale * sender.scale
-//            self.cameraNode?.runAction(SKAction.scaleBy(sender.scale, duration: 0))
-//        }
-//    }
+// MARK: Set Pieces
+extension DILParkScene {
+    /// Add level geometry to entity tracker and convert to entities.
+    private func initLevelGeometry() {
+        for node in self.children {
+            if let nodeName = node.name {
+                switch (nodeName.lowercaseString) {
+                case "joggingpathh":
+                    
+                    break
+                case "joggingpathv":
+                    break
+                case "joggingpathcurve":
+                    break
+                default:
+                    break
+                }
+            }
+        }
+    }
+}

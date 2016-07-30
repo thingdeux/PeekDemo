@@ -30,7 +30,7 @@ class DILLevelSelectScene : SKScene {
         self.addMissionBrief(text: "government and overthrow our president. Foreign Agents")
         self.addMissionBrief(text: "have been using the park near Romall precinct to share")
         self.addMissionBrief(text: "information of their operations.  Find them, and report")
-        self.addMissionBrief(text: "back.  You have numerous resources are your disposal.")
+        self.addMissionBrief(text: "back.  You have numerous resources at your disposal.")
         self.addMissionBrief(text: " ")
         self.addMissionBrief(text: "Be Vigilent.")
     }

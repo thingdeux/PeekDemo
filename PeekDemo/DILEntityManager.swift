@@ -44,6 +44,10 @@ class DILEntityManager {
         }
     }
     
+    func addToEntityTracker(entity: GKEntity) {
+        allEntities.insert(entity)
+    }
+    
     func remove(entity: GKEntity) {
         if let spriteNode = entity.componentForClass(DILSpriteComponent.self)?.node {
             spriteNode.removeFromParent()
